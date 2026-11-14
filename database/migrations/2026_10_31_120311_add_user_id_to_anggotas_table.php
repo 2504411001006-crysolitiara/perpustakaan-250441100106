@@ -20,8 +20,9 @@ return new class extends Migration
         // Hubungkan anggota lama dengan akun berdasarkan email yang sama.
         DB::statement('
             UPDATE anggotas
-            INNER JOIN users ON anggotas.email = users.email
-            SET anggotas.user_id = users.id
+            SET user_id = users.id
+            FROM users
+            WHERE anggotas.email = users.email
         ');
     }
 
