@@ -25,7 +25,17 @@ return Application::configure(basePath: dirname(__DIR__))
 
     })
     ->withExceptions(function (Exceptions $exceptions): void {
+
+        $exceptions->report(function (\Throwable $e): void {
+            error_log(
+                'LARAVEL REPORT ERROR: '.$e::class.
+                ' | '.$e->getMessage().
+                ' | '.$e->getFile().':'.$e->getLine()
+            );
+        });
+
         $exceptions->shouldRenderJsonWhen(
             fn (Request $request) => $request->is('api/*') || $request->expectsJson(),
         );
+
     })->create();
