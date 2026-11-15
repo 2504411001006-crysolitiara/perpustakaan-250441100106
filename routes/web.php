@@ -10,7 +10,22 @@ use App\Http\Controllers\LaporanController;
 // Halaman utama dan buku
 Route::get('/', [BukuController::class, 'home'])->name('home');
 Route::get('/buku', [BukuController::class, 'index'])->name('buku.index');
-Route::get('/buku/{id}', [BukuController::class, 'show'])->name('buku.show');
+
+// Halaman create: khusus Admin dan Petugas
+Route::get('/buku/create', function () {
+    $user = auth()->user();
+
+    if ($user->hasRole('Admin') || $user->hasRole('Petugas')) {
+        return redirect()->route('buku.index');
+    }
+
+    abort(403);
+})->middleware('auth');
+
+// Detail buku hanya menerima ID numerik
+Route::get('/buku/{id}', [BukuController::class, 'show'])
+    ->whereNumber('id')
+    ->name('buku.show');
 
 // Dashboard berdasarkan role
 Route::middleware(['auth'])->group(function () {
