@@ -15,6 +15,9 @@ try {
     /** @var Application $app */
     $app = require_once __DIR__.'/../bootstrap/app.php';
 
+    $_SERVER['SCRIPT_NAME'] = '/index.php';
+    $_SERVER['PHP_SELF'] = '/index.php';
+
     $app->handleRequest(Request::capture());
 
 } catch (\Throwable $e) {
