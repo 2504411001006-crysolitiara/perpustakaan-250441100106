@@ -2,6 +2,16 @@
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
+    <!-- Judul Login dan NIM -->
+    <div class="mb-6 text-center">
+        <h1 class="text-xl font-bold text-gray-800">
+            Login Perpustakaan
+        </h1>
+        <p class="mt-1 text-sm text-gray-600">
+            NIM: 250441100106
+        </p>
+    </div>
+
     <form method="POST" action="{{ route('login') }}">
         @csrf
 
